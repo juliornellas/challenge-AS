@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ContactPolicy
 {
@@ -27,9 +28,11 @@ class ContactPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
-        //
+        return Auth::user()
+        ? Response::allow()
+        : Response::deny("You're not authorized to create contacts");
     }
 
     /**

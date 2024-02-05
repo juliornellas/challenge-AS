@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreContactRequest;
-use App\Http\Requests\UpdateContactRequest;
+use App\Http\Requests\ContactRequest;
+use App\Http\Requests\ContactUpdateRequest;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -13,7 +14,15 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        return view('contacts.index', [
+            'contacts'=> Contact::all()
+        ]);
+    }
+
+    public function manage(){
+        return view('contacts.manage', [
+            'contacts'=> Contact::where('user_id', Auth::id())->get()
+        ]);
     }
 
     /**
@@ -21,15 +30,23 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        if(!auth()){
+            abort(403,"You're not logged in!");
+        }
+
+        return view('contacts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContactRequest $request)
+    public function store(ContactRequest $request)
     {
-        //
+        $fields = $request->all();
+        $fields['user_id'] = auth()->id();
+        Contact::create($fields);
+
+        return redirect()->back()->with('message', 'Contact created successfully!');
     }
 
     /**
@@ -37,7 +54,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        //
+        return view('contacts.show', ['contact' => $contact]);
     }
 
     /**
@@ -45,15 +62,20 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        $this->authorize('update', $contact);
+        return view('contacts.edit', ['contact' => $contact]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContactRequest $request, Contact $contact)
+    public function update(ContactUpdateRequest $request, Contact $contact)
     {
-        //
+        $this->authorize('update', $contact);
+
+        $contact->update($request->all());
+
+        return back()->with('message', 'Contact updated successfully!');
     }
 
     /**
@@ -61,6 +83,8 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $this->authorize('delete', $contact);
+        $contact->delete();
+        return redirect('/contacts')->with('message', 'Contact deleted successfully');
     }
 }
