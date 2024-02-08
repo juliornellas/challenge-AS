@@ -38,7 +38,6 @@ class ContactPolicy
      */
     public function update(User $user, Contact $contact): Response
     {
-        dump('update');
         return $user->id === $contact->user_id
         ? Response::allow()
         : Response::deny("You're not authorized to update this contact");
@@ -49,8 +48,6 @@ class ContactPolicy
      */
     public function delete(User $user, Contact $contact): Response
     {
-        dump('delete');
-
         return $user->id === $contact->user_id
         ? Response::allow()
         : Response::deny("You're not authorized to delete this contact");
