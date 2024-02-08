@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\ContactUpdateRequest;
 use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
@@ -30,7 +31,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        if(!auth()){
+        if(!auth()->user()){
             abort(403,"You're not logged in!");
         }
 
@@ -42,6 +43,10 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
+        if(!auth()->user()){
+            abort(403,"You're not logged in!");
+        }
+
         $fields = $request->all();
         $fields['user_id'] = auth()->id();
         Contact::create($fields);

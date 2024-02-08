@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::resource('/contacts', ContactController::class);
 
-Route::get('/manage', [ContactController::class, 'manage']);
+Route::get('/manage', [ContactController::class, 'manage'])->middleware('auth');
 Route::post('logout', [UserController::class,'logout'])->middleware('auth');
 Route::get('login', [UserController::class,'login']);
 
