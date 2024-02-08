@@ -29,10 +29,10 @@
     <ul class="flex space-x-6 mr-6 text-lg">
       @auth
       <li>
-        <a href="/contacts/create" class="hover:text-blue-600"><i class="fa-solid fa-plus"></i> Create Contacts</a>
+        <a href="/contacts/create" class="hover:text-blue-600 border rounded p-1 bg-slate-100 shadow"><i class="fa-solid fa-plus"></i> Create</a>
       </li>
       <li>
-        <a href="/manage" class="hover:text-blue-600"><i class="fa-solid fa-gear"></i> Manage Contacts</a>
+        <a href="/manage" class="hover:text-blue-600 border rounded p-1 bg-slate-100 shadow"><i class="fa-solid fa-gear"></i> Manage</a>
       </li>
       <li>
         <form class="inline" method="POST" action="/logout">
@@ -61,7 +61,7 @@
     @endauth
 
     <x-alert-message></x-alert-message>
-    <main class="flex items-center justify-center">
+    <main class="mx-16">
         {{$slot}}
     </main>
 
