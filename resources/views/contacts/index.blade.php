@@ -32,12 +32,14 @@
                         {{$contact->email}}
                     </td>
                     <td class="px-6 py-4">
-                        <a href="/contacts/{{$contact->id}}/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit</a>
-                        <form method="POST" action="/contacts/{{$contact->id}}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="text-red-500">Delete</button>
-                        </form>
+                        @auth
+                            <a href="/contacts/{{$contact->id}}/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit</a>
+                            <form method="POST" action="/contacts/{{$contact->id}}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-red-500">Delete</button>
+                            </form>
+                        @endauth
                     </td>
                 </tr>
                 @endforeach
