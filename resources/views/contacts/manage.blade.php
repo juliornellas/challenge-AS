@@ -44,4 +44,9 @@
             </tbody>
         </table>
     </div>
+    @if ($contacts)
+        <div class="mt-4">
+            {{$contacts->links()}}
+        </div>
+    @endif
 </x-layout>
