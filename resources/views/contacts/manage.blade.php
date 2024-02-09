@@ -31,16 +31,16 @@
                     <td class="px-6 py-4">
                         {{$contact->email}}
                     </td>
-                    @auth
-                        <td class="px-6 py-4">
-                            <a href="/{{$contact->id}}/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit</a>
-                            <form method="POST" action="/{{$contact->id}}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="text-red-500">Delete</button>
-                            </form>
-                        </td>
-                    @endauth
+                    <td class="px-6 py-4">
+                        @auth
+                        <a href="/{{$contact->id}}/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit</a>
+                        <form method="POST" action="/{{$contact->id}}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="text-red-500">Delete</button>
+                        </form>
+                        @endauth
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
