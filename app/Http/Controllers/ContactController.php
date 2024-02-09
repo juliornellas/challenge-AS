@@ -20,9 +20,8 @@ class ContactController extends Controller
     }
 
     public function manage(){
-        return view('contacts.manage', [
-            'contacts'=> Contact::where('user_id', Auth::id())->get()
-        ]);
+        $contacts = Contact::where('user_id', Auth::id())->paginate(5);
+        return view('contacts.index', compact('contacts'));
     }
 
     /**

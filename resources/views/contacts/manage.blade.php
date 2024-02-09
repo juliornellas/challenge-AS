@@ -46,7 +46,7 @@
             </tbody>
         </table>
     </div>
-    @if ($contacts)
+    @if (count($contacts) > 0)
         <div class="mt-4">
             {{$contacts->links()}}
         </div>
