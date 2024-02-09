@@ -19,13 +19,13 @@ Route::get('/', function () {
     return redirect('/contacts');
 });
 
-Route::resource('/contacts', ContactController::class);
+Route::resource('contacts', ContactController::class);
 
 Route::get('/manage', [ContactController::class, 'manage'])->middleware('auth');
 Route::post('logout', [UserController::class,'logout'])->middleware('auth');
 Route::get('login', [UserController::class,'login']);
 
-Route::get('register', [UserController::class,'register'])->middleware('guest');
+Route::get('register', [UserController::class,'register']);
 Route::post('/users', [UserController::class, 'store']);
 
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
