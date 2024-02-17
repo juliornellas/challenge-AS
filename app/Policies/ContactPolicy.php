@@ -28,9 +28,11 @@ class ContactPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): Response
+    public function create(?User $user): Response
     {
-        //
+        return $user
+        ? Response::allow()
+        : Response::deny("You're not logged in to create a contact");
     }
 
     /**

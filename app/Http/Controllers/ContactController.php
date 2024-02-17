@@ -6,6 +6,8 @@ use App\Http\Requests\ContactRequest;
 use App\Http\Requests\ContactUpdateRequest;
 use App\Models\Contact;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
@@ -29,9 +31,11 @@ class ContactController extends Controller
      */
     public function create()
     {
-        if(!auth()->user()){
-            abort(403,"You're not logged in!");
-        }
+        // if(!auth()->user()){
+        //     abort(403,"You're not logged in!");
+        // }
+
+        $this->authorize('create', Contact::class);
 
         return view('contacts.create');
     }
@@ -41,9 +45,11 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        if(!auth()->user()){
-            abort(403,"You're not logged in!");
-        }
+        // if(!auth()->user()){
+        //     abort(403,"You're not logged in!");
+        // }
+
+        $this->authorize('create', Contact::class);
 
         $fields = $request->all();
         $fields['user_id'] = auth()->id();
